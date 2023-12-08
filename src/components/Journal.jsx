@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { days, grades, students, subjects, weeks } from './data'
+import React, { useEffect, useState } from 'react'
+import { days, subjects, weeks,students } from './data'
 import '../App.css'
+import { Link } from 'react-router-dom'
 
 
 
@@ -8,21 +9,35 @@ export default function Journal() {
 
   const[state,setState]=useState({
     name:'',
-    subject:'',
     week:'',
     day:'',
-
+    studentname:'',
   })
+  const filteredSubject=subjects.filter((subject)=>(state.subject===subject.subject))
+  const subj=filteredSubject.map((subject)=>(subject.subjectId))
+  console.log(subj);
+
   const handleFilter=(e)=>(
     setState({...state,[e.target.name]:e.target.value})
   )
 
-  const filtered=grades.filter((grade)=>(
-   (grade.name===state.name)&&(grade.week===state.week)&&(grade.subject===state.subject)&&(grade.day===state.day)
-  ))
-  console.log(filtered);
-  console.log(state.name);
+    // const filtered=grades.filter((grade)=>(
+    //   (grade.name===state.name)&&(grade.week===state.week)&&(grade.subject===state.subject)&&(grade.day===state.day)
+    //  ))
+  
     
+
+
+
+  const addGrade=()=>{
+    grades.push(state)
+    console.log(grades)
+  }
+  const addStudent=()=>{
+    grades.push(state)
+    console.log(grades);
+  }
+
   return (
     <>
     <div className='wraper'>
@@ -34,47 +49,42 @@ export default function Journal() {
           <option key={subject.subjectId}>{subject.subject}</option>
         ))}
       </select>
+      <input name='subjectId' onChange={(e)=>handleFilter(e)} value={subj[0]}/>
       </div>
       <div className='subject'>
       <p >მოსწავლე</p>
       <select name='name'  onChange={(e)=>handleFilter(e)}>
       <option >მოსწავლე</option>
-        {students.map((student)=>(
+        {/* {grades.map((student,i)=>(
           <>
-          <option key={student.studentId}>{student.name}</option>
+          <option key={i}>{student.name}</option>
           </>
-        ))}
+        ))} */}
       </select>
       </div>
-     <div className='subject'>
-     <p>კვირა</p>
-      <select name='week' onChange={(e)=>handleFilter(e)}>
-      <option>კვირა</option>
-        {weeks.map((week)=>(
-          <option key={week.id}>{week.week}</option>
-        ))}
-      </select>
-     </div>
-     <div className='subject'>
-     <p>დღე</p>
-      <select name='day' onChange={(e)=>handleFilter(e)}>
-      <option>დღე</option>
-        {days&&days.map((day)=>(
-          <option key={day.dayId}>{day.day}</option>
-        ))}
-      </select>
-     </div>
-
+    
+    
     
     </div>
-    <div style={{display:'flex',flexDirection:'column', marginLeft:80, marginTop:30}}>
-    <p>{state.name}</p>
-     <p>{state.subject}</p>
-     <p>{state.week}</p>
-     <p>{state.day}</p>
-     {filtered.map((grade)=>(
-        <p>{grade.grade} ქულა</p>
-      ))}    </div>
+    
+    <div>
+      <input name='studentname' onChange={(e)=>handleFilter(e)} type="text" placeholder='მოსწავლე'/>
+      <button onClick={addStudent}>ახალი სტუდენტის დამატება</button>
+      <input name='grade' onChange={(e)=>handleFilter(e)} type='text' placeholder='ქულა'/>
+      <button onClick={addGrade}>ქულის დამატება</button>
+    </div>
+
+
+
+    <div>
+      {students.map((student)=>(
+        <>
+        <Link key={student.studentId} to={`/student/${student.studentId}`} className='list'>{student.name}</Link>
+        </>
+      ))}
+    </div>
+   
+
     </>
   )
 }

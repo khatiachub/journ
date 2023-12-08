@@ -1,12 +1,45 @@
-/* .subject{
-    display: flex;
-} */
-.wraper{
-    display: flex;
-    max-width:600px;
-    width: 100%;
-    justify-content: space-between;
-    margin: 0 auto;
-    margin-top: 50px;
-    
+.weeks{
+  display: flex;
+  margin-top: 20px;
 }
+.week{
+  margin-left: 10px;
+}
+
+.list{
+  display: flex;
+  list-style: none;
+  margin-top: 40px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  max-width: 350px;
+  width: 100%;
+
+}
+
+th {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #dddddd;
+  box-shadow: #dddd 0px 4px 8px -2px, #dddd 0px 0px 0px 1px;
+
+
+}
+td{
+  text-align: left;
+  border: 1px solid #dddddd;
+  box-shadow: #dddd 0px 4px 8px -2px, #dddd 0px 0px 0px 1px;
+
+}
+*{
+  padding: 0;
+}
+.addgrade{
+  width: 250px;
+  border: 1px solid grey;
+  margin-top: 10px;
+}
+
